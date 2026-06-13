@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://mysql:3306/authuser
+    username: root
+    password: ${MYSQL_ROOT_PASSWORD:rootpw}
+  data:
+    redis:
+      host: redis
+      port: 6379
+      database: 0

@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: auth-user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/authuser
+    username: root
+    password: rootpw
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+auth:
+  token-ttl-seconds: 3600
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

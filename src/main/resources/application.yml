@@ -21,6 +21,21 @@ spring:
       database: 0
 auth:
   token-ttl-seconds: 3600
+# 소셜 로그인: provider별로 서로 다른 검증 메커니즘(이기종). mode=mock 이면 결정론적
+# mock(valid-<provider>-<seed>), mode=real 이면 실제 OAuth 검증. 자격증명 미설정 시 mock 권장.
+social:
+  google:
+    mode: ${SOCIAL_GOOGLE_MODE:mock}          # OIDC ID-token JWKS 검증
+    client-id: ${SOCIAL_GOOGLE_CLIENT_ID:}
+  kakao:
+    mode: ${SOCIAL_KAKAO_MODE:mock}            # Authorization code 교환 + user/me
+    client-id: ${SOCIAL_KAKAO_CLIENT_ID:}
+    client-secret: ${SOCIAL_KAKAO_CLIENT_SECRET:}
+    redirect-uri: ${SOCIAL_KAKAO_REDIRECT_URI:}
+  naver:
+    mode: ${SOCIAL_NAVER_MODE:mock}            # access token + nid/me 인트로스펙션
+    client-id: ${SOCIAL_NAVER_CLIENT_ID:}
+    client-secret: ${SOCIAL_NAVER_CLIENT_SECRET:}
 management:
   endpoints:
     web:

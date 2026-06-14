@@ -11,7 +11,7 @@ import java.util.Set;
 @Component
 public class MockSocialVerifier implements SocialVerifier {
 
-    private static final Set<String> SUPPORTED = Set.of("kakao", "naver", "toss");
+    private static final Set<String> SUPPORTED = Set.of("google", "kakao", "naver", "toss");
 
     @Override
     public ExternalIdentity verify(String provider, String providerToken) {

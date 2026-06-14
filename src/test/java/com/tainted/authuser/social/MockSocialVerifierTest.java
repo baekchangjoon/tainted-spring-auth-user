@@ -18,9 +18,16 @@ class MockSocialVerifierTest {
     }
 
     @Test
+    void googleNowSupportedInMock() {
+        ExternalIdentity id = verifier.verify("google", "valid-google-u1");
+        assertEquals("google", id.provider());
+        assertEquals("google:u1", id.externalId());
+    }
+
+    @Test
     void unsupportedProviderRejected() {
         assertThrows(InvalidTokenException.class,
-                () -> verifier.verify("google", "valid-google-u1"));
+                () -> verifier.verify("facebook", "valid-facebook-u1"));
     }
 
     @Test

@@ -102,9 +102,19 @@ class AuthIntegrationTest {
     @Test
     void unsupportedProviderRejectedWithProblemJson() {
         given().contentType(ContentType.JSON)
-                .body("{\"provider\":\"google\",\"providerToken\":\"valid-google-u1\"}")
+                .body("{\"provider\":\"facebook\",\"providerToken\":\"valid-facebook-u1\"}")
                 .when().post("/api/v1/auth/login")
                 .then().statusCode(401)
                 .contentType("application/problem+json");
+    }
+
+    @Test
+    void googleMockLoginSucceeds() {
+        // google 은 이제 지원 provider(기본 mock 모드). valid-google-<seed> 로그인 성공.
+        given().contentType(ContentType.JSON)
+                .body("{\"provider\":\"google\",\"providerToken\":\"valid-google-u1\"}")
+                .when().post("/api/v1/auth/login")
+                .then().statusCode(200)
+                .body("accessToken", not(emptyOrNullString()));
     }
 }

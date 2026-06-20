@@ -37,6 +37,55 @@
   <build>
     <plugins>
       <plugin><groupId>org.springframework.boot</groupId><artifactId>spring-boot-maven-plugin</artifactId></plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <configuration>
+          <!--
+            커버리지 카운터에서 제외하는 항목(로직이 아닌 부트스트랩/와이어링):
+              - *Application : Spring Boot main 클래스(부트스트랩, 테스트 불가/무의미)
+              - config/**    : @Configuration 빈 와이어링(OpenApiConfig, DeterminismConfig,
+                               SocialConfig). 외부 네트워크 의존(JWKS/RestClient) 빈 정의로
+                               순수 단위 테스트 대상이 아님. SocialConfig 가 조립하는 검증기
+                               로직 자체는 social/** 단위 테스트로 직접 커버한다.
+          -->
+          <excludes>
+            <exclude>**/*Application.*</exclude>
+            <exclude>**/config/**</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals><goal>prepare-agent</goal></goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals><goal>report</goal></goals>
+          </execution>
+          <execution>
+            <id>check</id>
+            <phase>verify</phase>
+            <goals><goal>check</goal></goals>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.80</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

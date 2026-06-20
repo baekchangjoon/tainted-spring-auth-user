@@ -1,0 +1,57 @@
+{
+  "sutId" : "authuser",
+  "commitSha" : "authuser-m1",
+  "endpoints" : [ ],
+  "paths" : [ ],
+  "sql" : [ ],
+  "tables" : [ {
+    "name" : "user_account",
+    "columns" : [ {
+      "name" : "id",
+      "jdbcType" : "VARCHAR",
+      "nullable" : false,
+      "primaryKey" : true,
+      "autoIncrement" : false
+    }, {
+      "name" : "created_at",
+      "jdbcType" : "DATETIME",
+      "nullable" : false,
+      "primaryKey" : false,
+      "autoIncrement" : false
+    }, {
+      "name" : "external_id",
+      "jdbcType" : "VARCHAR",
+      "nullable" : false,
+      "primaryKey" : false,
+      "autoIncrement" : false
+    }, {
+      "name" : "social_provider",
+      "jdbcType" : "VARCHAR",
+      "nullable" : false,
+      "primaryKey" : false,
+      "autoIncrement" : false
+    } ],
+    "foreignKeys" : [ ],
+    "uniqueKeys" : [ [ "id" ], [ "social_provider", "external_id" ] ]
+  } ],
+  "mappers" : [ ],
+  "httpCalls" : [ ],
+  "wsEndpoints" : [ ],
+  "wsExchanges" : [ ],
+  "kafkaConsumers" : [ ],
+  "kafkaExchanges" : [ ],
+  "seeds" : [ {
+    "id" : "seed-get-api-v1-me-1",
+    "pathId" : "get-api-v1-me-s200-1",
+    "table" : "user_account",
+    "columns" : [ "id", "created_at", "external_id", "social_provider" ],
+    "values" : [ "probe-id-90689", "2037-01-01T00:00", "probe", "probe" ]
+  }, {
+    "id" : "seed-get-internal-users-id-1",
+    "pathId" : null,
+    "table" : "user_account",
+    "columns" : [ "id", "created_at", "external_id", "social_provider" ],
+    "values" : [ "probe-id-92498", "2037-01-01T00:00", "probe", "probe" ]
+  } ],
+  "capturedEventEmits" : [ ]
+}

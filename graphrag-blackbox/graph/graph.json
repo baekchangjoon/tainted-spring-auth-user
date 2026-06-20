@@ -1,0 +1,529 @@
+{
+  "sutId" : "authuser",
+  "commitSha" : "authuser-m1",
+  "endpoints" : [ {
+    "id" : "get-api-v1-me",
+    "httpMethod" : "GET",
+    "path" : "/api/v1/me",
+    "handlerClass" : "com.tainted.authuser.web.MeController",
+    "handlerMethod" : "me",
+    "params" : [ ],
+    "authRequired" : true
+  }, {
+    "id" : "get-internal-users-id",
+    "httpMethod" : "GET",
+    "path" : "/internal/users/{id}",
+    "handlerClass" : "com.tainted.authuser.web.InternalAuthController",
+    "handlerMethod" : "getUser",
+    "params" : [ {
+      "name" : "id",
+      "javaType" : "java.lang.String",
+      "kind" : "PATH"
+    } ],
+    "authRequired" : true
+  }, {
+    "id" : "post-api-v1-auth-guest",
+    "httpMethod" : "POST",
+    "path" : "/api/v1/auth/guest",
+    "handlerClass" : "com.tainted.authuser.web.AuthController",
+    "handlerMethod" : "guest",
+    "params" : [ ],
+    "authRequired" : false
+  }, {
+    "id" : "post-api-v1-auth-login",
+    "httpMethod" : "POST",
+    "path" : "/api/v1/auth/login",
+    "handlerClass" : "com.tainted.authuser.web.AuthController",
+    "handlerMethod" : "login",
+    "params" : [ {
+      "name" : "request",
+      "javaType" : "com.tainted.authuser.web.dto.LoginRequest",
+      "kind" : "BODY"
+    } ],
+    "authRequired" : true
+  }, {
+    "id" : "post-internal-auth-verify",
+    "httpMethod" : "POST",
+    "path" : "/internal/auth/verify",
+    "handlerClass" : "com.tainted.authuser.web.InternalAuthController",
+    "handlerMethod" : "verify",
+    "params" : [ {
+      "name" : "request",
+      "javaType" : "com.tainted.authuser.web.dto.VerifyRequest",
+      "kind" : "BODY"
+    } ],
+    "authRequired" : true
+  } ],
+  "paths" : [ {
+    "id" : "get-api-v1-me-s200-1",
+    "endpointId" : "get-api-v1-me",
+    "sampleInput" : { },
+    "expectedStatus" : 200,
+    "sampleResponse" : {
+      "userId" : "7f23d8d8-f115-456d-9926-c7a2335926a4",
+      "displayName" : "익명",
+      "socialProvider" : "guest"
+    },
+    "capturedSqlIds" : [ "sql-get-api-v1-me-s200-1-1", "sql-get-api-v1-me-s200-1-2" ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 1
+    }, {
+      "classFqn" : "com.tainted.authuser.web.MeController",
+      "method" : "extractBearer",
+      "line" : 24,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.web.MeController",
+      "method" : "extractBearer",
+      "line" : 24,
+      "branchIndex" : 1
+    } ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ "seed-get-api-v1-me-1" ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "get-api-v1-me-negauth",
+    "endpointId" : "get-api-v1-me",
+    "sampleInput" : { },
+    "expectedStatus" : 401,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Invalid token",
+      "status" : 401,
+      "detail" : "invalid or expired token",
+      "instance" : "/api/v1/me"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 1
+    }, {
+      "classFqn" : "com.tainted.authuser.web.MeController",
+      "method" : "extractBearer",
+      "line" : 24,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.web.MeController",
+      "method" : "extractBearer",
+      "line" : 24,
+      "branchIndex" : 1
+    } ],
+    "discoveredBy" : "negative-auth",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "get-internal-users-id-s404-1",
+    "endpointId" : "get-internal-users-id",
+    "sampleInput" : {
+      "id" : "probe-id-92498"
+    },
+    "expectedStatus" : 404,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "User not found",
+      "status" : 404,
+      "detail" : "user not found: probe-id-92498",
+      "instance" : "/internal/users/probe-id-92498"
+    },
+    "capturedSqlIds" : [ "sql-get-internal-users-id-s404-1-1" ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "get-internal-users-id-s404-2",
+    "endpointId" : "get-internal-users-id",
+    "sampleInput" : {
+      "id" : ""
+    },
+    "expectedStatus" : 404,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Not Found",
+      "status" : 404,
+      "detail" : "No static resource internal/users.",
+      "instance" : "/internal/users/"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "get-internal-users-id-negauth",
+    "endpointId" : "get-internal-users-id",
+    "sampleInput" : {
+      "id" : "probe-id-92498"
+    },
+    "expectedStatus" : 404,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "User not found",
+      "status" : 404,
+      "detail" : "user not found: probe-id-92498",
+      "instance" : "/internal/users/probe-id-92498"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "negative-auth",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-api-v1-auth-login-s401-1",
+    "endpointId" : "post-api-v1-auth-login",
+    "sampleInput" : {
+      "provider" : "sample-provider",
+      "providerToken" : "sample-providerToken"
+    },
+    "expectedStatus" : 401,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Invalid token",
+      "status" : 401,
+      "detail" : "unsupported provider: sample-provider",
+      "instance" : "/api/v1/auth/login"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ {
+      "classFqn" : "com.tainted.authuser.social.CompositeSocialVerifier",
+      "method" : "verify",
+      "line" : 35,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.social.CompositeSocialVerifier",
+      "method" : "verify",
+      "line" : 35,
+      "branchIndex" : 1
+    } ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-api-v1-auth-login-s400-1",
+    "endpointId" : "post-api-v1-auth-login",
+    "sampleInput" : {
+      "providerToken" : "sample-providerToken"
+    },
+    "expectedStatus" : 400,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Bad Request",
+      "status" : 400,
+      "detail" : "Invalid request content.",
+      "instance" : "/api/v1/auth/login"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-api-v1-auth-login-negauth",
+    "endpointId" : "post-api-v1-auth-login",
+    "sampleInput" : {
+      "provider" : "sample-provider",
+      "providerToken" : "sample-providerToken"
+    },
+    "expectedStatus" : 401,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Invalid token",
+      "status" : 401,
+      "detail" : "unsupported provider: sample-provider",
+      "instance" : "/api/v1/auth/login"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ {
+      "classFqn" : "com.tainted.authuser.social.CompositeSocialVerifier",
+      "method" : "verify",
+      "line" : 35,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.social.CompositeSocialVerifier",
+      "method" : "verify",
+      "line" : 35,
+      "branchIndex" : 1
+    } ],
+    "discoveredBy" : "negative-auth",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-api-v1-auth-login-negval-provider-not_blank",
+    "endpointId" : "post-api-v1-auth-login",
+    "sampleInput" : {
+      "provider" : "",
+      "providerToken" : "sample-providerToken"
+    },
+    "expectedStatus" : 400,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Bad Request",
+      "status" : 400,
+      "detail" : "Invalid request content.",
+      "instance" : "/api/v1/auth/login"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "negative-validation",
+    "constraints" : [ "negative-validation:provider:NOT_BLANK" ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-api-v1-auth-login-negval-providerToken-not_blank",
+    "endpointId" : "post-api-v1-auth-login",
+    "sampleInput" : {
+      "provider" : "sample-provider",
+      "providerToken" : ""
+    },
+    "expectedStatus" : 400,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Bad Request",
+      "status" : 400,
+      "detail" : "Invalid request content.",
+      "instance" : "/api/v1/auth/login"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "negative-validation",
+    "constraints" : [ "negative-validation:providerToken:NOT_BLANK" ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-internal-auth-verify-s200-1",
+    "endpointId" : "post-internal-auth-verify",
+    "sampleInput" : {
+      "token" : "sample-token"
+    },
+    "expectedStatus" : 200,
+    "sampleResponse" : {
+      "active" : false,
+      "userId" : null,
+      "socialProvider" : null
+    },
+    "capturedSqlIds" : [ "sql-post-internal-auth-verify-s200-1-1" ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 1
+    } ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-internal-auth-verify-s400-1",
+    "endpointId" : "post-internal-auth-verify",
+    "sampleInput" : { },
+    "expectedStatus" : 400,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Bad Request",
+      "status" : 400,
+      "detail" : "Invalid request content.",
+      "instance" : "/internal/auth/verify"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "heuristic",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-internal-auth-verify-negauth",
+    "endpointId" : "post-internal-auth-verify",
+    "sampleInput" : {
+      "token" : "sample-token"
+    },
+    "expectedStatus" : 200,
+    "sampleResponse" : {
+      "active" : false,
+      "userId" : null,
+      "socialProvider" : null
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 0
+    }, {
+      "classFqn" : "com.tainted.authuser.token.TokenService",
+      "method" : "resolveUserId",
+      "line" : 36,
+      "branchIndex" : 1
+    } ],
+    "discoveredBy" : "negative-auth",
+    "constraints" : [ ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  }, {
+    "id" : "post-internal-auth-verify-negval-token-not_blank",
+    "endpointId" : "post-internal-auth-verify",
+    "sampleInput" : {
+      "token" : ""
+    },
+    "expectedStatus" : 400,
+    "sampleResponse" : {
+      "type" : "about:blank",
+      "title" : "Bad Request",
+      "status" : 400,
+      "detail" : "Invalid request content.",
+      "instance" : "/internal/auth/verify"
+    },
+    "capturedSqlIds" : [ ],
+    "capturedHttpCallIds" : [ ],
+    "branchesTaken" : [ ],
+    "discoveredBy" : "negative-validation",
+    "constraints" : [ "negative-validation:token:NOT_BLANK" ],
+    "validationWarnings" : [ ],
+    "requiredSeedIds" : [ ],
+    "capturedEventEmitIds" : [ ]
+  } ],
+  "sql" : [ {
+    "id" : "sql-get-api-v1-me-s200-1-1",
+    "pathId" : "get-api-v1-me-s200-1",
+    "sqlKind" : "GET",
+    "normalizedSql" : "GET auth:token:3a6056ae-1935-4fd9-a8f0-0815a7d6a9b4",
+    "tableName" : "",
+    "bindings" : [ ]
+  }, {
+    "id" : "sql-get-api-v1-me-s200-1-2",
+    "pathId" : "get-api-v1-me-s200-1",
+    "sqlKind" : "SELECT",
+    "normalizedSql" : "select ua1_0.id,ua1_0.created_at,ua1_0.external_id,ua1_0.social_provider from user_account ua1_0 where ua1_0.id=?",
+    "tableName" : "user_account",
+    "bindings" : [ {
+      "position" : 1,
+      "column" : "id",
+      "value" : "7f23d8d8-f115-456d-9926-c7a2335926a4",
+      "origin" : "LITERAL",
+      "table" : "user_account"
+    } ]
+  }, {
+    "id" : "sql-get-internal-users-id-s404-1-1",
+    "pathId" : "get-internal-users-id-s404-1",
+    "sqlKind" : "SELECT",
+    "normalizedSql" : "select ua1_0.id,ua1_0.created_at,ua1_0.external_id,ua1_0.social_provider from user_account ua1_0 where ua1_0.id=?",
+    "tableName" : "user_account",
+    "bindings" : [ {
+      "position" : 1,
+      "column" : "id",
+      "value" : "probe-id-92498",
+      "origin" : "API_PARAM",
+      "table" : "user_account"
+    } ]
+  }, {
+    "id" : "sql-post-internal-auth-verify-s200-1-1",
+    "pathId" : "post-internal-auth-verify-s200-1",
+    "sqlKind" : "GET",
+    "normalizedSql" : "GET auth:token:sample-token",
+    "tableName" : "",
+    "bindings" : [ ]
+  } ],
+  "tables" : [ {
+    "name" : "user_account",
+    "columns" : [ {
+      "name" : "id",
+      "jdbcType" : "VARCHAR",
+      "nullable" : false,
+      "primaryKey" : true,
+      "autoIncrement" : false
+    }, {
+      "name" : "created_at",
+      "jdbcType" : "DATETIME",
+      "nullable" : false,
+      "primaryKey" : false,
+      "autoIncrement" : false
+    }, {
+      "name" : "external_id",
+      "jdbcType" : "VARCHAR",
+      "nullable" : false,
+      "primaryKey" : false,
+      "autoIncrement" : false
+    }, {
+      "name" : "social_provider",
+      "jdbcType" : "VARCHAR",
+      "nullable" : false,
+      "primaryKey" : false,
+      "autoIncrement" : false
+    } ],
+    "foreignKeys" : [ ],
+    "uniqueKeys" : [ [ "id" ], [ "social_provider", "external_id" ] ]
+  } ],
+  "mappers" : [ ],
+  "httpCalls" : [ ],
+  "wsEndpoints" : [ ],
+  "wsExchanges" : [ ],
+  "kafkaConsumers" : [ ],
+  "kafkaExchanges" : [ ],
+  "seeds" : [ {
+    "id" : "seed-get-api-v1-me-1",
+    "pathId" : "get-api-v1-me-s200-1",
+    "table" : "user_account",
+    "columns" : [ "id", "created_at", "external_id", "social_provider" ],
+    "values" : [ "probe-id-90689", "2037-01-01T00:00", "probe", "probe" ]
+  }, {
+    "id" : "seed-get-internal-users-id-1",
+    "pathId" : null,
+    "table" : "user_account",
+    "columns" : [ "id", "created_at", "external_id", "social_provider" ],
+    "values" : [ "probe-id-92498", "2037-01-01T00:00", "probe", "probe" ]
+  } ],
+  "capturedEventEmits" : [ ]
+}

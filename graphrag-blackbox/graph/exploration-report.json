@@ -1,0 +1,42 @@
+{
+  "endpoints" : [ {
+    "endpointId" : "get-api-v1-me",
+    "totalBranches" : 0,
+    "coveredBranches" : 0,
+    "missedBranches" : [ ],
+    "pathsByEngine" : {
+      "heuristic" : 1
+    },
+    "solverRelevantMissed" : 0
+  }, {
+    "endpointId" : "get-internal-users-id",
+    "totalBranches" : 0,
+    "coveredBranches" : 0,
+    "missedBranches" : [ ],
+    "pathsByEngine" : {
+      "heuristic" : 2
+    },
+    "solverRelevantMissed" : 0
+  }, {
+    "endpointId" : "post-api-v1-auth-login",
+    "totalBranches" : 0,
+    "coveredBranches" : 0,
+    "missedBranches" : [ ],
+    "pathsByEngine" : {
+      "heuristic" : 2
+    },
+    "solverRelevantMissed" : 0
+  }, {
+    "endpointId" : "post-internal-auth-verify",
+    "totalBranches" : 0,
+    "coveredBranches" : 0,
+    "missedBranches" : [ ],
+    "pathsByEngine" : {
+      "heuristic" : 2
+    },
+    "solverRelevantMissed" : 0
+  } ],
+  "coveredAppBranches" : 6,
+  "totalAppBranches" : 77,
+  "coveredAppClasses" : [ "com.tainted.authuser.social.CompositeSocialVerifier", "com.tainted.authuser.token.TokenService", "com.tainted.authuser.web.MeController" ]
+}
